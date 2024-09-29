@@ -1,0 +1,56 @@
+/**********************************************************
+
+	Following is the Binary Tree Node class structure
+
+	template <typename T>
+	class BinaryTreeNode {
+    	public : 
+    	T data;
+    	BinaryTreeNode<T> *left;
+    	BinaryTreeNode<T> *right;
+
+    	BinaryTreeNode(T data) {
+        	this -> data = data;
+        	left = NULL;
+        	right = NULL;
+    	}
+	};
+
+***********************************************************/
+#include <queue>
+void printLevelWise(BinaryTreeNode<int> *root) {
+	if(root==NULL){
+		return ;
+	}
+
+	queue <BinaryTreeNode<int>*> q;
+
+	q.push(root);
+
+	while(!q.empty()){
+		BinaryTreeNode<int> *first = q.front();
+		q.pop();
+		if(first->left){
+			q.push(first->left);
+		}
+		if(first->right){
+			q.push(first->right);
+		}
+		cout<<first->data<<":";
+		if(first->left!=NULL){
+			cout<<"L:"<<first->left->data;
+		}
+		else{
+			cout<<"L:"<<-1;
+		}
+		cout<<",";
+		if(first->right!=NULL){
+			cout<<"R:"<<first->right->data;
+		}
+		else{
+			cout<<"R:"<<-1;
+		}
+		cout<<endl;
+
+	}
+}
