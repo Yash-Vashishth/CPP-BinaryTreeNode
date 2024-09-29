@@ -1,0 +1,26 @@
+BinaryTreeNode<int> * binaryHelper(int* postorder, int postLength, int *inorder, int inLength, int inS, int inE, int postS, int postE) {
+    if (inS > inE) {
+        return NULL;
+    }
+
+    BinaryTreeNode<int> * root = new BinaryTreeNode<int>(postorder[postE]);
+
+    int z = -1;
+    for (int i = inS; i <= inE; i++) {
+        if (postorder[postE] == inorder[i]) {
+            z = i;
+            break;
+        }
+    }
+
+    int leftSubtreeSize = z - inS;
+
+    root->left = binaryHelper(postorder, postLength, inorder, inLength, inS, z - 1, postS, postS + leftSubtreeSize - 1);
+    root->right = binaryHelper(postorder, postLength, inorder, inLength, z + 1, inE, postS + leftSubtreeSize, postE - 1);
+
+    return root;
+}
+
+BinaryTreeNode<int>* buildTree(int *postorder, int postLength, int *inorder, int inLength) {
+    return binaryHelper(postorder, postLength, inorder, inLength, 0, inLength - 1, 0, postLength - 1);
+}
