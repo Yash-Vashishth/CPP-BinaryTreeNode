@@ -1,0 +1,14 @@
+void preOrderreturn(TreeNode<int> * root, vector<int> &temp){
+    if(root==NULL) return ;
+    temp.push_back(root->data);
+
+    preOrderreturn(root->left,temp);
+    preOrderreturn(root->right,temp);
+
+    
+}
+vector<int> preOrder(TreeNode<int> * root){
+    vector <int> temp;
+    preOrderreturn(root,temp);
+    return temp;
+}
