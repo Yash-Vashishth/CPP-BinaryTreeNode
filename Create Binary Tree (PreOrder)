@@ -1,0 +1,26 @@
+BinaryTreeNode<int> * binarHelper(int* preorder,int preLength,int * inorder,int inLength,int inS,int inE,int preS,int preE)
+{
+	if(inS>inE)
+	{
+		return NULL;
+	}
+	BinaryTreeNode<int> * root=new BinaryTreeNode<int>(preorder[preS]);
+	int z=-1;
+	for(int i=inS;i<=inE;i++)
+	{
+		if(preorder[preS]==inorder[i])
+		{
+			z=i;
+			break;
+		}
+	}
+	// LEFT PRE END
+	int y=z-1-inS+preS+1;
+	root->left=binarHelper(preorder, preLength, inorder,inLength, inS, z-1,preS+1, y);
+	root->right=binarHelper(preorder, preLength, inorder,inLength,z+1,inE,y+1,preE);
+	return root;
+}
+
+BinaryTreeNode<int>* buildTree(int *preorder, int preLength, int *inorder, int inLength) {
+   return binarHelper(preorder,preLength,inorder,inLength,0,inLength-1,0,preLength-1);
+}
